@@ -1,0 +1,9 @@
+# Source images are duplicated as optimized website assets under /assets.
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+
+# Local system files
+.DS_Store
+Thumbs.db

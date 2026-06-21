@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Découvrez le mindset Moul Proteines, les faits sur nos produits et trouvez le complément adapté à votre objectif.">
+  <title>À propos & simulateur | Moul Proteines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="about.css">
+</head>
+<body class="about-page">
+  <div class="noise" aria-hidden="true"></div>
+  <header class="about-header">
+    <a class="brand" href="index.html"><img src="assets/logo-mp.jpeg" alt="Moul Proteines"></a>
+    <nav><a href="index.html">Accueil</a><a href="#facts">Facts produits</a><a class="active" href="#simulateur">Simulation</a><a href="contact.html">Contact</a></nav>
+    <a class="header-sim" href="#simulateur">Trouver mon produit</a>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <div class="about-beam" aria-hidden="true"></div>
+      <div class="about-slogan">
+        <p>NOTRE MINDSET</p>
+        <img src="assets/slogan-moul-proteines.png" alt="Courage, Discipline, Ghatwsel li bghiti">
+        <span>Pas de raccourci. Une méthode, de la constance et les bons outils.</span>
+        <a class="btn btn-primary" href="#simulateur">Lancer la simulation <b>↓</b></a>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div><p class="section-kicker">QUI SOMMES-NOUS ?</p><h1>PLUS QU'UNE<br><em>BOUTIQUE.</em></h1></div>
+      <div class="story-copy"><p>Moul Proteines accompagne les sportifs de Berrechid et de tout le Maroc avec des produits authentiques, des prix clairs et des conseils orientés vers un objectif réel.</p><p>Notre rôle n'est pas de promettre des miracles. C'est de t'aider à comprendre à quoi sert chaque produit et à choisir celui qui complète vraiment ton alimentation et ton entraînement.</p><div class="values"><span><b>01</b>Courage</span><span><b>02</b>Discipline</span><span><b>03</b>Résultats</span></div></div>
+    </section>
+
+    <section class="all-facts" id="facts">
+      <div class="about-title"><p>COMPRENDRE AVANT DE CHOISIR</p><h2>LES FACTS DE <em>CHAQUE PRODUIT</em></h2><span>Clique sur une carte pour consulter sa fiche complète.</span></div>
+      <div class="fact-filters" id="fact-filters">
+        <button class="active" data-fact-filter="all">Tous</button><button data-fact-filter="protein">Protéines & masse</button><button data-fact-filter="creatine">Créatine</button><button data-fact-filter="wellness">Bien-être</button><button data-fact-filter="energy">Energy & Hydration</button>
+      </div>
+      <div class="all-facts-grid" id="all-facts-grid"></div>
+    </section>
+
+    <section class="simulator-section" id="simulateur">
+      <div class="sim-intro"><p>SIMULATEUR MOUL PROTEINES</p><h2>QUEL PRODUIT<br><em>EST FAIT POUR TOI ?</em></h2><span>Réponds à 4 questions. Notre outil te propose une orientation simple selon ton objectif.</span></div>
+      <form class="sim-form" id="sim-form">
+        <fieldset><legend><b>01</b> Ton objectif principal</legend><div class="choice-grid"><label><input type="radio" name="goal" value="mass" required><span>Prendre de la masse</span></label><label><input type="radio" name="goal" value="muscle"><span>Muscle & récupération</span></label><label><input type="radio" name="goal" value="strength"><span>Force & performance</span></label><label><input type="radio" name="goal" value="energy"><span>Énergie & endurance</span></label><label><input type="radio" name="goal" value="wellness"><span>Bien-être quotidien</span></label></div></fieldset>
+        <fieldset><legend><b>02</b> Ton alimentation actuelle</legend><div class="choice-grid"><label><input type="radio" name="food" value="hard" required><span>Je mange difficilement assez</span></label><label><input type="radio" name="food" value="normal"><span>Je mange suffisamment</span></label><label><input type="radio" name="food" value="lean"><span>Je contrôle mes calories</span></label></div></fieldset>
+        <fieldset><legend><b>03</b> Ton rythme d'entraînement</legend><div class="choice-grid"><label><input type="radio" name="training" value="low" required><span>0 à 2 fois / semaine</span></label><label><input type="radio" name="training" value="medium"><span>3 à 4 fois / semaine</span></label><label><input type="radio" name="training" value="high"><span>5 fois ou plus</span></label></div></fieldset>
+        <fieldset><legend><b>04</b> Ta tolérance aux stimulants</legend><div class="choice-grid"><label><input type="radio" name="stimulants" value="yes" required><span>Bonne tolérance</span></label><label><input type="radio" name="stimulants" value="no"><span>Sensible / sans caféine</span></label></div></fieldset>
+        <button class="sim-submit" type="submit">Voir ma recommandation <span>→</span></button>
+        <p class="sim-disclaimer">Cette simulation est une orientation générale et ne remplace pas l'avis d'un professionnel de santé ou de nutrition.</p>
+      </form>
+      <div class="sim-result" id="sim-result" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="about-footer"><img src="assets/logo-mp.jpeg" alt="Moul Proteines"><p>© 2026 Moul Proteines · Berrechid, Maroc</p><a href="https://wa.me/212774145588" target="_blank" rel="noreferrer">WhatsApp ↗</a></footer>
+  <a class="simulator-fab" href="#simulateur"><span>?</span><b>Lancer la simulation</b></a>
+  <script src="about.js"></script>
+</body>
+</html>
