@@ -3,48 +3,50 @@ const nav = document.querySelector('#nav');
 
 const intro = document.querySelector('#intro-screen');
 const introMusic = document.querySelector('#intro-music');
+const introSoundButton = document.querySelector('#intro-sound');
 const introMusicStart = 3.5;
 const introMusicEnd = 10.5;
-let introSeen = false;
-try { introSeen = sessionStorage.getItem('mp-intro-seen') === '1'; } catch (error) { introSeen = false; }
-if (introSeen) {
-  intro.classList.add('skip');
-} else {
-  document.body.classList.add('intro-active');
+introMusic.volume = 1;
+document.body.classList.add('intro-active');
+let introTimersStarted = false;
 
   const stopIntroMusic = () => {
     introMusic.pause();
     introMusic.currentTime = introMusicStart;
   };
 
-  const playIntroMusic = () => {
+  const startIntroTimers = () => {
+    if (introTimersStarted) return;
+    introTimersStarted = true;
+    introSoundButton.classList.remove('show');
+    setTimeout(() => {
+      intro.classList.add('exit');
+      document.body.classList.remove('intro-active');
+      stopIntroMusic();
+    }, 7000);
+    setTimeout(() => intro.classList.add('hidden'), 7700);
+  };
+
+  const playIntroMusic = async () => {
     introMusic.currentTime = introMusicStart;
-    const playback = introMusic.play();
-    if (playback) playback.catch(() => { /* Audible autoplay may require user interaction. */ });
+    try {
+      await introMusic.play();
+      startIntroTimers();
+    } catch (error) {
+      introSoundButton.classList.add('show');
+    }
   };
 
   introMusic.addEventListener('timeupdate', () => {
     if (introMusic.currentTime >= introMusicEnd) stopIntroMusic();
   });
 
-  const unlockIntroMusic = () => {
-    if (introMusic.paused && !intro.classList.contains('exit')) playIntroMusic();
-  };
-  document.addEventListener('pointerdown', unlockIntroMusic, { once: true });
-  document.addEventListener('keydown', unlockIntroMusic, { once: true });
+  introSoundButton.addEventListener('click', playIntroMusic);
 
   window.addEventListener('load', () => {
     intro.classList.add('play');
     playIntroMusic();
-    setTimeout(() => {
-      intro.classList.add('exit');
-      document.body.classList.remove('intro-active');
-      stopIntroMusic();
-      try { sessionStorage.setItem('mp-intro-seen', '1'); } catch (error) { /* Storage can be unavailable in private mode. */ }
-    }, 7000);
-    setTimeout(() => intro.classList.add('hidden'), 7700);
   });
-}
 
 menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
 nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => nav.classList.remove('open')));
