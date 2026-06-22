@@ -1,5 +1,5 @@
 const products = [
-  {name:'Créatine Monohydrate',brand:'CRÉATINE',category:'PERFORMANCE',image:'product-01.png',price:'À partir de 300 DH',intro:'Un soutien simple pour les efforts courts, répétés et intenses. Disponible en formats 250 g et 500 g.',tags:['Force','Puissance','250 g / 500 g'],facts:[['Force explosive','Aide à améliorer la performance lors des séries courtes et intenses.'],['Répétition des efforts','Utile pour mieux maintenir la qualité des efforts répétés à l’entraînement.'],['Progression','Associée à un entraînement régulier, elle soutient la progression en force et en masse musculaire.']],use:'Suivez la portion indiquée sur le produit, généralement mélangée avec de l’eau. La régularité compte davantage que l’heure exacte.',timing:'Chaque jour, à un moment facile à maintenir. Les jours d’entraînement comme les jours de repos.',caution:'Une légère prise de poids liée à l’eau stockée dans le muscle est normale. Hydratez-vous correctement.'},
+  {name:'Créatine Monohydrate',brand:'CRÉATINE',category:'PERFORMANCE',image:'product-01.png',price:'À partir de 300 DH',note:'250 g : 300 DH au lieu de 350 DH · 500 g : 450 DH au lieu de 500 DH',intro:'Un soutien simple pour les efforts courts, répétés et intenses. Disponible en formats 250 g et 500 g.',tags:['Force','Puissance','250 g / 500 g'],facts:[['Force explosive','Aide à améliorer la performance lors des séries courtes et intenses.'],['Répétition des efforts','Utile pour mieux maintenir la qualité des efforts répétés à l’entraînement.'],['Progression','Associée à un entraînement régulier, elle soutient la progression en force et en masse musculaire.']],use:'Suivez la portion indiquée sur le produit, généralement mélangée avec de l’eau. La régularité compte davantage que l’heure exacte.',timing:'Chaque jour, à un moment facile à maintenir. Les jours d’entraînement comme les jours de repos.',caution:'Une légère prise de poids liée à l’eau stockée dans le muscle est normale. Hydratez-vous correctement.'},
   {name:'Super Mass Gainer',brand:'DYMATIZE',category:'PRISE DE MASSE',image:'product-02.png',price:'610 DH',old:'650',intro:'Une formule riche en calories pour les sportifs qui ont du mal à atteindre leur apport énergétique quotidien.',tags:['Calories','Masse','Glucides + protéines'],facts:[['Apport calorique','Augmente facilement les calories quotidiennes nécessaires à une prise de poids.'],['Construction musculaire','Apporte des protéines qui contribuent au maintien et au développement musculaire.'],['Récupération énergétique','Les glucides aident à reconstituer les réserves d’énergie après un effort exigeant.']],use:'Commencez par une demi-portion pour évaluer votre tolérance, puis adaptez selon vos besoins caloriques et l’étiquette.',timing:'Entre les repas ou après l’entraînement. Il complète l’alimentation, sans remplacer les vrais repas.',caution:'Un surplus calorique trop important favorise aussi la prise de graisse. Ajustez la portion à votre objectif.'},
   {name:'Amino Energy Drink',brand:'OPTIMUM NUTRITION',category:'ÉNERGIE',image:'product-03.png',price:'25 DH',intro:'Une boisson pratique pour apporter un coup de boost et accompagner les journées ou séances actives.',tags:['Énergie','Prêt à boire','25 DH / unité'],facts:[['Énergie rapide','Pensée pour soutenir la vigilance et l’énergie avant ou pendant une activité.'],['Format pratique','Prête à boire, facile à emporter à la salle ou pendant une journée chargée.'],['Acides aminés','Apporte des acides aminés en complément de l’alimentation quotidienne.']],use:'Consommez une unité en respectant les indications de l’emballage.',timing:'Avant l’entraînement ou pendant la journée lorsque vous avez besoin de concentration.',caution:'Vérifiez la teneur en caféine. Évitez le soir et ne cumulez pas plusieurs sources stimulantes.'},
   {name:'Lean Mass Gainer',brand:'APPLIED NUTRITION',category:'PRISE DE MASSE',image:'product-04.png',price:'580 DH',old:'600',intro:'Un gainer conçu pour augmenter l’apport en protéines et en calories dans le cadre d’une prise de masse maîtrisée.',tags:['Masse','Protéines','Calories'],facts:[['Surplus calorique','Aide à atteindre un apport énergétique supérieur lorsque l’alimentation seule ne suffit pas.'],['Protéines','Contribue au maintien et au développement de la masse musculaire.'],['Praticité','Permet de préparer rapidement une collation calorique mesurable.']],use:'Mélangez la portion recommandée avec de l’eau ou du lait selon vos besoins caloriques.',timing:'Après la séance ou en collation entre deux repas.',caution:'Adaptez les portions à votre dépense énergétique et à votre alimentation globale.'},
@@ -40,5 +40,33 @@ if (!product) {
   document.querySelector('#detail-use').textContent = product.use;
   document.querySelector('#detail-timing').textContent = product.timing;
   document.querySelector('#detail-caution').textContent = product.caution;
-  document.querySelector('#detail-order').href = `https://wa.me/212774145588?text=${encodeURIComponent(`Bonjour, je souhaite commander : ${product.name} (${product.price})`)}`;
+  const variantContainer = document.querySelector('#detail-variant');
+  if (id === 1) {
+    variantContainer.innerHTML = '<label>Choisir le format<select id="detail-variant-select"><option value="250 g" data-price="300">250 g — 300 DH au lieu de 350 DH</option><option value="500 g" data-price="450">500 g — 450 DH au lieu de 500 DH</option></select></label>';
+  }
+  const selectedProduct = () => {
+    const select = document.querySelector('#detail-variant-select');
+    if (!select) return {id, name: product.name, price: Number((product.price.match(/\d+/) || [0])[0])};
+    const option = select.selectedOptions[0];
+    return {id: `${id}-${option.value}`, name: `${product.name} ${option.value}`, price: Number(option.dataset.price)};
+  };
+  const updateOrderLink = () => {
+    const selected = selectedProduct();
+    document.querySelector('#detail-order').href = `https://wa.me/212774145588?text=${encodeURIComponent(`Bonjour, je souhaite commander : ${selected.name} (${selected.price} DH)`)}`;
+  };
+  document.querySelector('#detail-variant-select')?.addEventListener('change', updateOrderLink);
+  updateOrderLink();
+  document.querySelector('#detail-add-cart').addEventListener('click', () => {
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('mp-cart')) || []; } catch (error) { cart = []; }
+    const selected = selectedProduct();
+    const existing = cart.find(item => String(item.id) === String(selected.id));
+    if (existing) existing.quantity += 1;
+    else cart.push({...selected, image: `assets/products/${product.image}`, quantity: 1});
+    try { localStorage.setItem('mp-cart', JSON.stringify(cart)); } catch (error) { /* Storage can be unavailable. */ }
+    const toast = document.querySelector('#toast');
+    toast.textContent = `${selected.name} ajouté au panier`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  });
 }

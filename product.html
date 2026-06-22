@@ -15,7 +15,7 @@
   <div class="noise" aria-hidden="true"></div>
   <header class="detail-header">
     <a class="back-link" href="index.html#products">← Retour aux produits</a>
-    <a class="brand" href="index.html"><img src="assets/logo-mp.jpeg" alt="Logo Moul Proteines"></a>
+    <a class="brand" href="index.html"><img src="assets/logo-moul-proteines.png" alt="Logo Moul Proteines"></a>
     <a class="detail-wa" href="contact.html">Contact ↗</a>
   </header>
 
@@ -29,8 +29,10 @@
       <p class="eyebrow"><span></span><b id="detail-brand"></b></p>
       <h1 id="detail-name"></h1>
       <div class="detail-price" id="detail-price"></div>
+      <div class="detail-variant" id="detail-variant"></div>
       <p class="detail-intro" id="detail-intro"></p>
       <div class="detail-actions">
+        <button class="btn detail-add-cart" id="detail-add-cart" type="button">Ajouter au panier +</button>
         <a class="btn btn-primary" id="detail-order" href="#" target="_blank" rel="noreferrer">Commander sur WhatsApp <span>↗</span></a>
         <a class="btn btn-ghost" href="index.html#products">Continuer mes achats</a>
         <a class="btn btn-simulator" href="about.html#simulateur">Trouver mon produit</a>
@@ -55,6 +57,7 @@
   </section>
 
   <footer class="detail-footer"><span>© 2026 Moul Proteines</span><strong>COURAGE · DISCIPLINE · RÉSULTATS</strong></footer>
+  <div class="toast" id="toast">Produit ajouté au panier</div>
   <a class="simulator-fab" href="about.html#simulateur"><span>?</span><b>Simulation produit</b></a>
   <script src="product.js"></script>
 </body>

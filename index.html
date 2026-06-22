@@ -19,16 +19,17 @@
     <div class="intro-loader" aria-hidden="true"><span></span></div>
     <p>MOUL PROTEINES <b>·</b> NUTRITION SPORTIVE</p>
   </div>
+  <audio id="intro-music" src="STORMY%20-%20KILOWAT%20(VISUALIZER).mp3" preload="auto"></audio>
   <header class="header" id="top">
     <a class="brand" href="#top" aria-label="Moul Proteines, accueil">
-      <img src="assets/logo-mp.jpeg" alt="Logo Moul Proteines">
+      <img src="assets/logo-moul-proteines.png" alt="Logo Moul Proteines">
     </a>
     <nav class="nav" id="nav" aria-label="Navigation principale">
       <a class="active" href="#top">Accueil</a><a href="#categories">Catégories</a><a href="#products">Produits</a><a href="about.html">À propos</a><a href="contact.html">Contact</a>
     </nav>
     <div class="header-actions">
       <button class="icon-btn" aria-label="Rechercher" data-search><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg></button>
-      <button class="cart-btn" aria-label="Panier"><svg viewBox="0 0 24 24"><path d="M3 4h2l2 11h10l2-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg><span id="cart-count">0</span></button>
+      <button class="cart-btn" id="cart-button" aria-label="Ouvrir le panier"><svg viewBox="0 0 24 24"><path d="M3 4h2l2 11h10l2-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg><span id="cart-count">0</span></button>
       <button class="menu-btn" id="menu-btn" aria-label="Ouvrir le menu"><span></span><span></span></button>
     </div>
   </header>
@@ -78,7 +79,7 @@
         <button class="filter-btn" data-filter="drinks">Energy &amp; Hydration</button>
       </div>
       <div class="product-grid">
-        <article class="product-card reveal" data-category="creatine" data-name="Créatine Monohydrate"><span class="badge">2 FORMATS</span><div class="product-image"><img src="assets/products/product-01.png" alt="Créatine monohydrate 250 g et 500 g" loading="lazy"></div><p class="brand-name">CRÉATINE</p><h3>Créatine Monohydrate</h3><div class="variants"><span>250 g <b>300 DH</b> <del>350</del></span><span>500 g <b>400 DH</b> <del>500</del></span></div><div class="product-bottom"><strong>À PARTIR DE 300 <small>DH</small></strong><button class="add-cart">+</button></div></article>
+        <article class="product-card reveal" data-category="creatine" data-name="Créatine Monohydrate"><span class="badge">2 FORMATS</span><div class="product-image"><img src="assets/products/product-01.png" alt="Créatine monohydrate 250 g et 500 g" loading="lazy"></div><p class="brand-name">CRÉATINE</p><h3>Créatine Monohydrate</h3><div class="variants"><label class="variant-choice">Choisir le format<select data-product-variant><option value="250 g" data-price="300">250 g — 300 DH au lieu de 350 DH</option><option value="500 g" data-price="450">500 g — 450 DH au lieu de 500 DH</option></select></label></div><div class="product-bottom"><strong>À PARTIR DE 300 <small>DH</small></strong><button class="add-cart">+</button></div></article>
         <article class="product-card reveal" data-category="protein" data-name="Dymatize Super Mass Gainer"><span class="badge">PROMO</span><div class="product-image"><img src="assets/products/product-02.png" alt="Dymatize Super Mass Gainer" loading="lazy"></div><p class="brand-name">DYMATIZE</p><h3>Super Mass Gainer</h3><div class="product-bottom"><strong>610 <small>DH</small> <del>650</del></strong><button class="add-cart">+</button></div></article>
         <article class="product-card reveal" data-category="drinks" data-name="Amino Energy"><span class="badge dark">UNITÉ</span><div class="product-image"><img src="assets/products/product-03.png" alt="Boisson Amino Energy" loading="lazy"></div><p class="brand-name">OPTIMUM NUTRITION</p><h3>Amino Energy Drink</h3><div class="product-bottom"><strong>25 <small>DH</small></strong><button class="add-cart">+</button></div></article>
         <article class="product-card reveal" data-category="protein" data-name="Applied Nutrition Lean Mass Gainer"><span class="badge">PROMO</span><div class="product-image"><img src="assets/products/product-04.png" alt="Applied Nutrition Lean Mass Gainer" loading="lazy"></div><p class="brand-name">APPLIED NUTRITION</p><h3>Lean Mass Gainer</h3><div class="product-bottom"><strong>580 <small>DH</small> <del>600</del></strong><button class="add-cart">+</button></div></article>
@@ -115,7 +116,7 @@
 
   <footer id="contact">
     <div class="footer-main">
-      <div class="footer-brand"><img src="assets/logo-mp.jpeg" alt="Moul Proteines"><p>La nutrition de ceux qui<br>refusent d'abandonner.</p></div>
+      <div class="footer-brand"><img src="assets/logo-moul-proteines.png" alt="Moul Proteines"><p>La nutrition de ceux qui<br>refusent d'abandonner.</p></div>
       <div><h4>Navigation</h4><a href="#categories">Catégories</a><a href="#products">Produits</a><a href="#about">Notre mindset</a></div>
       <div><h4>Contact</h4><a href="tel:+212774145588">07 74 14 55 88</a><a href="tel:+212052106298">05 21 06 29 88</a></div>
       <div><h4>Showroom</h4><p>Lot Sidi Amer, N11<br>En face Café Seven Star<br>Berrechid, Maroc</p></div>
@@ -126,6 +127,22 @@
   <a class="whatsapp" href="https://wa.me/212774145588" target="_blank" rel="noreferrer" aria-label="Commander sur WhatsApp"><span>WA</span><b>Commander</b></a>
   <a class="simulator-fab" href="about.html#simulateur"><span>?</span><b>Trouver mon produit</b></a>
   <div class="toast" id="toast">Produit ajouté au panier</div>
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-hidden="true" aria-label="Votre panier">
+    <div class="cart-heading"><div><span>VOTRE SÉLECTION</span><h2>PANIER</h2></div><button id="cart-close" aria-label="Fermer le panier">×</button></div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-empty" id="cart-empty">Votre panier est vide.</div>
+    <div class="cart-footer"><p><span>Total</span><strong id="cart-total">0 DH</strong></p><button class="cart-checkout" id="cart-checkout" type="button">Confirmer la commande</button></div>
+    <form class="checkout-form" id="checkout-form">
+      <div class="checkout-form-heading"><div><span>DERNIÈRE ÉTAPE</span><h3>Informations de livraison</h3></div><button type="button" id="checkout-cancel" aria-label="Fermer">×</button></div>
+      <label>Nom complet<input type="text" name="name" autocomplete="name" required></label>
+      <label>Téléphone<input type="tel" name="phone" autocomplete="tel" placeholder="06 00 00 00 00" required></label>
+      <label>Ville<input type="text" name="city" autocomplete="address-level2" required></label>
+      <label>Adresse de livraison<textarea name="address" rows="3" autocomplete="street-address" required></textarea></label>
+      <label>Note <small>(facultatif)</small><textarea name="note" rows="2" placeholder="Saveur, disponibilité, précision..."></textarea></label>
+      <button class="checkout-submit" type="submit">Envoyer la commande sur WhatsApp ↗</button>
+    </form>
+  </aside>
   <div class="search-panel" id="search-panel"><button data-search aria-label="Fermer">×</button><p>RECHERCHE</p><input type="search" placeholder="Whey, créatine, mass gainer…" autofocus><span>Appuie sur Échap pour fermer</span></div>
   <script src="script.js"></script>
 </body>
