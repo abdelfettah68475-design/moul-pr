@@ -20,8 +20,31 @@ const products = [
   {name:'Serious Mass',brand:'OPTIMUM NUTRITION',category:'PRISE DE MASSE',image:'product-19.png',price:'1050 DH',old:'1100',intro:'Un mass gainer très calorique destiné aux sportifs ayant des besoins élevés ou des difficultés à prendre du poids.',tags:['Haute calorie','Masse','Récupération'],facts:[['Surplus énergétique','Aide à apporter beaucoup de calories dans un format liquide.'],['Glucides','Contribue à reconstituer les réserves énergétiques après des entraînements volumineux.'],['Protéines','Soutient la croissance musculaire lorsque l’entraînement et l’alimentation sont adaptés.']],use:'Commencez avec une portion réduite, puis augmentez progressivement selon votre tolérance et vos besoins.',timing:'Après l’entraînement ou entre les repas, jamais au détriment d’une alimentation variée.',caution:'Très calorique: suivez votre poids et votre tour de taille pour ajuster la dose intelligemment.'}
 ];
 
+products.push({
+  name:'ISO100 Hydrolyzed 650 g',
+  brand:'DYMATIZE',
+  category:'WHEY ISOLATE',
+  image:'product-06.png',
+  price:'600 DH',
+  old:'650',
+  variants:['Chocolat Peanut Butter','Fraise','Fruity Pebbles','Double Chocolat'],
+  intro:'Une protéine isolate hydrolysée en format 650 g, conçue pour une digestion rapide et un apport protéique de haute qualité.',
+  tags:['650 g','4 saveurs','Isolate hydrolysée'],
+  facts:[['Apport protéique','Aide à atteindre l’objectif quotidien en protéines nécessaire au maintien musculaire.'],['Récupération','Fournit des acides aminés utiles à la réparation musculaire après l’entraînement.'],['Digestion rapide','Le format hydrolysé est conçu pour être assimilé rapidement et facilement.']],
+  use:'Mélangez une portion selon l’étiquette avec de l’eau ou du lait.',
+  timing:'Après l’entraînement ou à tout moment où l’apport en protéines du repas est insuffisant.',
+  caution:'Vérifiez les allergènes et la tolérance aux produits laitiers sur l’étiquette.'
+});
+
+const productVariantConfig = {
+  2: {name:'Super Mass Gainer 2,7 kg', tags:['2,7 kg','Vanille','Chocolat'], variants:['Vanille','Chocolat']},
+  6: {name:'ISO100 Hydrolyzed 1,3 kg', tags:['1,3 kg','Chocolat Peanut Butter','Vanille','Double Chocolat'], variants:['Chocolat Peanut Butter','Vanille','Double Chocolat']},
+  7: {name:'Super Mass Gainer 5,44 kg', tags:['5,44 kg','Vanille','Chocolat'], variants:['Vanille','Chocolat']}
+};
+
 const id = Number(new URLSearchParams(window.location.search).get('id'));
 const product = products[id - 1];
+if (product && productVariantConfig[id]) Object.assign(product, productVariantConfig[id]);
 if (!product) {
   document.querySelector('#product-detail').outerHTML = '<main class="not-found"><h1>PRODUIT INTROUVABLE</h1><a href="index.html#products">← Retour au catalogue</a></main>';
 } else {
@@ -41,7 +64,11 @@ if (!product) {
   document.querySelector('#detail-timing').textContent = product.timing;
   document.querySelector('#detail-caution').textContent = product.caution;
   const variantContainer = document.querySelector('#detail-variant');
-  if (id === 1) {
+  if (product.variants) {
+    const price = Number((product.price.match(/\d+/) || [0])[0]);
+    const options = product.variants.map(variant => `<option value="${variant}" data-price="${price}">${variant}</option>`).join('');
+    variantContainer.innerHTML = `<label>Choisir la saveur<select id="detail-variant-select">${options}</select></label>`;
+  } else if (id === 1) {
     variantContainer.innerHTML = '<label>Choisir le format<select id="detail-variant-select"><option value="250 g" data-price="300">250 g — 300 DH au lieu de 350 DH</option><option value="500 g" data-price="450">500 g — 450 DH au lieu de 500 DH</option></select></label>';
   }
   const selectedProduct = () => {
