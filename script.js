@@ -2,30 +2,20 @@ const menuBtn = document.querySelector('#menu-btn');
 const nav = document.querySelector('#nav');
 
 const intro = document.querySelector('#intro-screen');
-const introLoaderBar = intro.querySelector('.intro-loader span');
-const introProgress = intro.querySelector('.intro-progress');
 document.body.classList.add('intro-active');
-let introProgressTimer;
 
 const enterSite = () => {
-  clearInterval(introProgressTimer);
-  introProgress.textContent = 'Downloading 100%';
   intro.classList.add('exit');
   document.body.classList.remove('intro-active');
 };
 
 const startIntro = () => {
   intro.classList.add('play');
-  let progress = 0;
-  introProgressTimer = setInterval(() => {
-    progress = Math.min(progress + 1, 99);
-    introProgress.textContent = `Downloading ${progress}%`;
-  }, 150);
+  setTimeout(enterSite, 1500);
 };
 
-setTimeout(startIntro, 3000);
+setTimeout(startIntro, 150);
 
-introLoaderBar.addEventListener('animationend', enterSite, { once: true });
 intro.addEventListener('transitionend', event => {
   if (event.target === intro && intro.classList.contains('exit')) intro.classList.add('hidden');
 });
