@@ -2,51 +2,33 @@ const menuBtn = document.querySelector('#menu-btn');
 const nav = document.querySelector('#nav');
 
 const intro = document.querySelector('#intro-screen');
-const introMusic = document.querySelector('#intro-music');
-const introSoundButton = document.querySelector('#intro-sound');
-const introMusicStart = 3.5;
-const introMusicEnd = 10.5;
-introMusic.volume = 1;
+const introLoaderBar = intro.querySelector('.intro-loader span');
+const introProgress = intro.querySelector('.intro-progress');
 document.body.classList.add('intro-active');
-let introTimersStarted = false;
+let introProgressTimer;
 
-  const stopIntroMusic = () => {
-    introMusic.pause();
-    introMusic.currentTime = introMusicStart;
-  };
+const enterSite = () => {
+  clearInterval(introProgressTimer);
+  introProgress.textContent = 'Downloading 100%';
+  intro.classList.add('exit');
+  document.body.classList.remove('intro-active');
+};
 
-  const startIntroTimers = () => {
-    if (introTimersStarted) return;
-    introTimersStarted = true;
-    introSoundButton.classList.remove('show');
-    setTimeout(() => {
-      intro.classList.add('exit');
-      document.body.classList.remove('intro-active');
-      stopIntroMusic();
-    }, 7000);
-    setTimeout(() => intro.classList.add('hidden'), 7700);
-  };
+const startIntro = () => {
+  intro.classList.add('play');
+  let progress = 0;
+  introProgressTimer = setInterval(() => {
+    progress = Math.min(progress + 1, 99);
+    introProgress.textContent = `Downloading ${progress}%`;
+  }, 150);
+};
 
-  const playIntroMusic = async () => {
-    introMusic.currentTime = introMusicStart;
-    try {
-      await introMusic.play();
-      startIntroTimers();
-    } catch (error) {
-      introSoundButton.classList.add('show');
-    }
-  };
+setTimeout(startIntro, 3000);
 
-  introMusic.addEventListener('timeupdate', () => {
-    if (introMusic.currentTime >= introMusicEnd) stopIntroMusic();
-  });
-
-  introSoundButton.addEventListener('click', playIntroMusic);
-
-  window.addEventListener('load', () => {
-    intro.classList.add('play');
-    playIntroMusic();
-  });
+introLoaderBar.addEventListener('animationend', enterSite, { once: true });
+intro.addEventListener('transitionend', event => {
+  if (event.target === intro && intro.classList.contains('exit')) intro.classList.add('hidden');
+});
 
 menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
 nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => nav.classList.remove('open')));
