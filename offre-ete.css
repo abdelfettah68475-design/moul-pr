@@ -87,6 +87,7 @@
 
 .offer-image{
   aspect-ratio: 1.15 / 1;
+  min-height: 260px;
   overflow: hidden;
   background: radial-gradient(circle at 50% 45%, #2e2a12 0, #121212 50%, #090909 78%);
   position: relative;
