@@ -33,6 +33,33 @@ if ('IntersectionObserver' in window) {
   revealItems.forEach(el => el.classList.add('visible'));
 }
 
+const buildFallbackSvg = title => {
+  const safeTitle = String(title || 'Offre été').replace(/[<>&]/g, '');
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 620">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#1f1f1f"/>
+          <stop offset="100%" stop-color="#090909"/>
+        </linearGradient>
+      </defs>
+      <rect width="800" height="620" fill="url(#g)"/>
+      <circle cx="650" cy="140" r="110" fill="#ffc400" fill-opacity=".16"/>
+      <text x="50" y="110" fill="#ffc400" font-size="44" font-family="Arial, sans-serif" font-weight="700">MOUL PROTEINES</text>
+      <text x="50" y="210" fill="#ffffff" font-size="72" font-family="Arial, sans-serif" font-weight="800">${safeTitle}</text>
+      <text x="50" y="280" fill="#9a9a94" font-size="28" font-family="Arial, sans-serif">Visuel indisponible</text>
+    </svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+};
+
+document.querySelectorAll('.offer-preview-card img').forEach(img => {
+  img.addEventListener('error', () => {
+    if (img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = '1';
+    img.src = buildFallbackSvg(img.closest('.offer-preview-card')?.querySelector('h3')?.textContent);
+  });
+});
+
 const countEl = document.querySelector('#cart-count');
 const toast = document.querySelector('#toast');
 const cartDrawer = document.querySelector('#cart-drawer');

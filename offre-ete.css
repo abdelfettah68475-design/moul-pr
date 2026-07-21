@@ -128,6 +128,15 @@
   color: #111;
 }
 
+.offer-card.is-fallback .offer-image{
+  background: linear-gradient(180deg, #161616, #090909);
+}
+
+.offer-card.is-fallback .offer-image img{
+  object-fit: contain;
+  padding: 18px;
+}
+
 @media (max-width: 900px){
   .offer-header{
     gap: 12px;
